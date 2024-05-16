@@ -42,7 +42,5 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
                 RaisePropertyChanged();
             }
         }
-
-
     }
 }

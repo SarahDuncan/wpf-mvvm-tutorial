@@ -29,7 +29,7 @@
         <view:CustomersView  Grid.Row="2"/>
 
         <!-- Statusbar -->
-        <StatusBar Grid.Row="3">
+        <StatusBar Grid.Row="3" Background="{StaticResource HeaderBackgroundBrush}">
             <StatusBarItem FontSize="20" Content=" (c) Wired Brain Coffee"/>
         </StatusBar>
     </Grid>

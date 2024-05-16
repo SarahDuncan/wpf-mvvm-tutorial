@@ -19,6 +19,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             DeleteCommand = new DelegateCommand(Delete, CanDelete);
         }
 
+        public bool IsCustomerSelected => SelectedCustomer is not null;
         public ObservableCollection<CustomerItemViewModel> Customers { get; } = new();
         public DelegateCommand AddCommand { get; }
         public DelegateCommand MoveNavigationCommand { get; }
@@ -31,6 +32,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             {
                 _selectedCustomer = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsCustomerSelected));
                 DeleteCommand.RaiseCanExecuteChanged();
             }
         }

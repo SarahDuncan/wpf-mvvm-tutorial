@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data.Common;
+using WiredBrainCoffee.CustomersApp.Commands;
 using WiredBrainCoffee.CustomersApp.Data;
 using WiredBrainCoffee.CustomersApp.Models;
 
@@ -14,9 +14,16 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
         public CustomersViewModel(ICustomerDataProvider dataProvider)
         {
             _dataProvider = dataProvider;
+            AddCommand = new DelegateCommand(Add);
+            MoveNavigationCommand = new DelegateCommand(MoveNavigation);
+            DeleteCommand = new DelegateCommand(Delete, CanDelete);
         }
 
         public ObservableCollection<CustomerItemViewModel> Customers { get; } = new();
+        public DelegateCommand AddCommand { get; }
+        public DelegateCommand MoveNavigationCommand { get; }
+        public DelegateCommand DeleteCommand { get; }
+
         public CustomerItemViewModel? SelectedCustomer
         {
             get => _selectedCustomer;
@@ -24,6 +31,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             {
                 _selectedCustomer = value;
                 RaisePropertyChanged();
+                DeleteCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -55,7 +63,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             }
         }
 
-        internal void Add()
+        private void Add(object? parameter)
         {
             var customer = new Customer
             {
@@ -66,10 +74,21 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             SelectedCustomer = viewModel;
         }
 
-        internal void MoveNavigation()
+        private void MoveNavigation(object? parameter)
         {
             NavigationSide = NavigationSide == NavigationSideEnum.Left ? NavigationSideEnum.Right : NavigationSideEnum.Right;
         }
+
+        private void Delete(object? parameter)
+        {
+            if (SelectedCustomer is not null)
+            {
+                Customers.Remove(SelectedCustomer);
+                SelectedCustomer = null;
+            }
+        }
+
+        private bool CanDelete(object? parameter) => SelectedCustomer is not null;
 
         public enum NavigationSideEnum
         {

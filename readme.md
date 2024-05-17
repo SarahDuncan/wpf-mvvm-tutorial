@@ -1,5 +1,5 @@
 # Coffee shop's customer app: WPF MVVM Tutorial
-I followed the 'WPF 6 Fundamentals' course on Pluralsight. This is a 6 hour course covering:
+I followed the ['WPF 6 Fundamentals' course on Pluralsight](https://app.pluralsight.com/library/courses/wpf-6-fundamentals/table-of-contents). This is a 6 hour course covering:
 
  - Instantiating objects in XAML
  - Building a UI
@@ -13,5 +13,7 @@ I followed the 'WPF 6 Fundamentals' course on Pluralsight. This is a 6 hour cour
  - Mastering control templates
  - Validating user input
  - Debugging your WPF application
+
+![A screenshot of the app.](/Images/screenshot.png)
 
 _this readme was last updated 15/05/2024_

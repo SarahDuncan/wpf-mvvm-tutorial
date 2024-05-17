@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
-using static WiredBrainCoffee.CustomersApp.ViewModels.CustomersViewModel;
+using WiredBrainCoffee.CustomersApp.ViewModels;
 
 namespace WiredBrainCoffee.CustomersApp.Converter
 {
@@ -8,8 +8,10 @@ namespace WiredBrainCoffee.CustomersApp.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var navigationSide = (NavigationSideEnum)value;
-            return navigationSide == NavigationSideEnum.Left ? 0 : 2; // <- value for Grid.Column
+            var navigationSide = (NavigationSide)value;
+            return navigationSide == NavigationSide.Left
+              ? 0 // <-- Value for Grid.Column
+              : 2;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

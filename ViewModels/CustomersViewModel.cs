@@ -7,23 +7,19 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
 {
     public class CustomersViewModel : ViewModelBase
     {
-        private readonly ICustomerDataProvider _dataProvider;
+        private readonly ICustomerDataProvider _customerDataProvider;
         private CustomerItemViewModel? _selectedCustomer;
-        private NavigationSideEnum _navigationSide;
+        private NavigationSide _navigationSide;
 
-        public CustomersViewModel(ICustomerDataProvider dataProvider)
+        public CustomersViewModel(ICustomerDataProvider customerDataProvider)
         {
-            _dataProvider = dataProvider;
+            _customerDataProvider = customerDataProvider;
             AddCommand = new DelegateCommand(Add);
             MoveNavigationCommand = new DelegateCommand(MoveNavigation);
             DeleteCommand = new DelegateCommand(Delete, CanDelete);
         }
 
-        public bool IsCustomerSelected => SelectedCustomer is not null;
         public ObservableCollection<CustomerItemViewModel> Customers { get; } = new();
-        public DelegateCommand AddCommand { get; }
-        public DelegateCommand MoveNavigationCommand { get; }
-        public DelegateCommand DeleteCommand { get; }
 
         public CustomerItemViewModel? SelectedCustomer
         {
@@ -37,8 +33,10 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             }
         }
 
-        public NavigationSideEnum NavigationSide 
-        { 
+        public bool IsCustomerSelected => SelectedCustomer is not null;
+
+        public NavigationSide NavigationSide
+        {
             get => _navigationSide;
             private set
             {
@@ -47,6 +45,12 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             }
         }
 
+        public DelegateCommand AddCommand { get; }
+
+        public DelegateCommand MoveNavigationCommand { get; }
+
+        public DelegateCommand DeleteCommand { get; }
+
         public async override Task LoadAsync()
         {
             if (Customers.Any())
@@ -54,8 +58,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
                 return;
             }
 
-            var customers = await _dataProvider.GetAllAsync();
-
+            var customers = await _customerDataProvider.GetAllAsync();
             if (customers is not null)
             {
                 foreach (var customer in customers)
@@ -67,10 +70,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
 
         private void Add(object? parameter)
         {
-            var customer = new Customer
-            {
-                FirstName = "new"
-            };
+            var customer = new Customer { FirstName = "New" };
             var viewModel = new CustomerItemViewModel(customer);
             Customers.Add(viewModel);
             SelectedCustomer = viewModel;
@@ -78,7 +78,9 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
 
         private void MoveNavigation(object? parameter)
         {
-            NavigationSide = NavigationSide == NavigationSideEnum.Left ? NavigationSideEnum.Right : NavigationSideEnum.Right;
+            NavigationSide = NavigationSide == NavigationSide.Left
+              ? NavigationSide.Right
+              : NavigationSide.Left;
         }
 
         private void Delete(object? parameter)
@@ -91,11 +93,11 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
         }
 
         private bool CanDelete(object? parameter) => SelectedCustomer is not null;
+    }
 
-        public enum NavigationSideEnum
-        {
-            Left,
-            Right
-        }
+    public enum NavigationSide
+    {
+        Left,
+        Right
     }
 }

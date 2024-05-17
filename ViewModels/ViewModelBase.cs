@@ -12,9 +12,6 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public virtual async Task LoadAsync()
-        {
-            await Task.CompletedTask;         
-        }
+        public virtual Task LoadAsync() => Task.CompletedTask;
     }
 }

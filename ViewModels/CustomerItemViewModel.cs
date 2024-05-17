@@ -13,19 +13,9 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
 
         public int Id => _model.Id;
 
-        public bool IsDeveloper
-        {
-            get { return _model.IsDeveloper; }
-            set 
-            { 
-                _model.IsDeveloper = value;
-                RaisePropertyChanged();
-            }
-        }
-
         public string? FirstName
         {
-            get { return _model.FirstName; }
+            get => _model.FirstName;
             set
             {
                 _model.FirstName = value;
@@ -35,10 +25,20 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
 
         public string? LastName
         {
-            get { return _model.LastName; }
-            set 
-            { 
-                _model.LastName = value; 
+            get => _model.LastName;
+            set
+            {
+                _model.LastName = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool IsDeveloper
+        {
+            get => _model.IsDeveloper;
+            set
+            {
+                _model.IsDeveloper = value;
                 RaisePropertyChanged();
             }
         }

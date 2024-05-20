@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using WiredBrainCoffee.CustomersApp.Data;
 using WiredBrainCoffee.CustomersApp.ViewModels;
 
 namespace WiredBrainCoffee.CustomersApp
@@ -8,12 +7,10 @@ namespace WiredBrainCoffee.CustomersApp
     {
         private readonly MainViewModel _viewModel;
 
-        public MainWindow()
+        public MainWindow(MainViewModel mainViewModel)
         {
             InitializeComponent();
-            _viewModel = new MainViewModel(
-              new CustomersViewModel(new CustomerDataProvider()),
-              new ProductsViewModel());
+            _viewModel = mainViewModel;
             DataContext = _viewModel;
             Loaded += MainWindow_Loaded;
         }

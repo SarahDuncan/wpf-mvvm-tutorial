@@ -5,7 +5,7 @@ using WiredBrainCoffee.CustomersApp.Models;
 
 namespace WiredBrainCoffee.CustomersApp.ViewModels
 {
-    public class CustomersViewModel : ViewModelBase
+    public class CustomersViewModel : ValidationViewModelBase
     {
         private readonly ICustomerDataProvider _customerDataProvider;
         private CustomerItemViewModel? _selectedCustomer;
